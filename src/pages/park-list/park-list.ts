@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+import { ParkData } from '../../providers/park-data';
 /*
   Generated class for the ParkList page.
 
@@ -12,8 +13,18 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'park-list.html'
 })
 export class ParkListPage {
+	parks: Array<Object> = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+  						public parkData: ParkData) {
+  	parkData.getParks().then(result => {
+  		this.parks = result;
+  	})
+  }
+
+  goParkDetails(theParkData){
+  	console.log(theParkData);
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ParkListPage');
