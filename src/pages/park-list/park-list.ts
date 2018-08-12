@@ -14,6 +14,7 @@ import { ParkData } from '../../providers/park-data';
 })
 export class ParkListPage {
 	parks: Array<Object> = [];
+  searchQuery: string = '';
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   						public parkData: ParkData) {
@@ -26,8 +27,32 @@ export class ParkListPage {
   	this.navCtrl.push("ParkDetailsPage", { parkData: theParkData });
   }
 
+  getParksSearch(event) {
+    // Reset items back to all of the items
+    this.parkData.getParks().then(result => {
+      this.parks = result
+    });
+
+    // set queryString to the value of the searchbar
+    let queryString = event.target.value;
+    
+    if (queryString == undefined || queryString.trim() == '') {
+      return;
+    }
+
+    this.parkData.getFilteredParks(queryString).then(result => {
+      this.parks = result;
+    })
+  }
+
+  resetList(event) {
+    //Reset items back to all of the items
+    this.parkData.getParks().then(result => {
+      this.parks = result;
+    })
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad ParkListPage');
   }
-
 }
