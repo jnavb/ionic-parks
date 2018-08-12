@@ -18,7 +18,6 @@ export class ParkDetailsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   	this.parkInfo = navParams.data.parkData;
-  	console.log(this.parkInfo);
   }
 
   ionViewDidLoad() {
